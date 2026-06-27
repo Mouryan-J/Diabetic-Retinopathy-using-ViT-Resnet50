@@ -1,0 +1,43 @@
+# Colab config — T4 (15GB) / A100 (40GB)
+# Clone to Colab and mount Drive before running:
+#   from google.colab import drive; drive.mount('/content/drive')
+#   !git clone https://github.com/<you>/<repo>.git
+#   %cd <repo>
+
+data:
+  root: data/
+  train_csv: data/train.csv
+  test_csv: data/test.csv
+  train_images: data/train_images/
+  test_images: data/test_images/
+  image_size: 384
+  num_classes: 5
+  valid_fraction: 0.2
+  random_seed: 42
+
+training:
+  batch_size: 16
+  num_workers: 2          # Colab has 2 CPU cores on free tier
+  mixed_precision: true
+
+vit:
+  model_name: google/vit-base-patch16-384
+  phase_a_epochs: 5
+  phase_b_epochs: 10
+  phase_c_epochs: 10
+  phase_a_lr: 1.0e-3
+  phase_b_lr: 5.0e-5
+  phase_c_lr: 1.0e-5
+  label_smoothing: 0.1
+  early_stop_patience: 4
+
+resnet:
+  head_epochs: 5
+  finetune_epochs: 15
+  head_lr: 1.0e-3
+  finetune_lr: 1.0e-5
+
+# Checkpoints go to Drive so they survive session resets
+paths:
+  checkpoints: /content/drive/MyDrive/DR_checkpoints/
+  results: experiments/results.md
