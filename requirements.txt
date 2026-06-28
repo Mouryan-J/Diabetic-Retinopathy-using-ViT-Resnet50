@@ -1,0 +1,9 @@
+gradio
+torch
+transformers
+accelerate
+safetensors
+huggingface_hub
+tensorflow-cpu
+Pillow
+numpy
